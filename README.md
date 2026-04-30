@@ -6,22 +6,6 @@ A beautifully designed travel exploration website dedicated to showcasing India'
 
 ---
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tourist Destinations](#tourist-destinations)
-- [Getting Started](#getting-started)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [How to Use](#how-to-use)
-- [Travel Groups](#travel-groups)
-- [Contact Us](#contact-us)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## 🌍 Overview
 
 **Bharat Bhraman** is a comprehensive travel platform designed to inspire and guide tourists exploring the incredible diversity of India. From the iconic Taj Mahal to the serene backwaters of Kerala, this website provides interactive maps, detailed destination information, and community travel groups.
