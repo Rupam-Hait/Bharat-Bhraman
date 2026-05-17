@@ -1,10 +1,10 @@
-<p align="right">
-   <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/4da40b30-7fd2-40cb-a50b-ff531408496d" />
-</p>
+
 # 🇮🇳 Bharat Bhraman - Explore India's Divine Beauty
 
 > **भारत भ्रमण** | Your Gateway to India's Most Iconic Destinations
-
+<p align="right">
+   <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/4da40b30-7fd2-40cb-a50b-ff531408496d" />
+</p>
 A beautifully designed travel exploration website dedicated to showcasing India's most famous tourist destinations, cultural landmarks, and adventure hotspots.
 
 ---
