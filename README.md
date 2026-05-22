@@ -17,9 +17,7 @@ A beautifully designed travel exploration website dedicated to showcasing India'
 To make India's rich cultural heritage and natural beauty accessible to travelers worldwide through an engaging, user-friendly platform.
 
 ---
-
 ## ✨ Features
-
 ### 🗺️ **Interactive Google Map**
 - Real-time map displaying 11+ major tourist destinations across India
 - Clickable markers with location details
