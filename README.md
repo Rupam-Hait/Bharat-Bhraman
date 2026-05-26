@@ -61,7 +61,6 @@ Join communities based on travel style:
 ---
 
 ## 🎯 Tourist Destinations
-
 | Destination | Location | Highlights |
 |---|---|---|
 | Taj Mahal | Agra, UP | Symbol of love, UNESCO World Heritage |
