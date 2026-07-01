@@ -2,6 +2,9 @@
 # 🇮🇳 Bharat Bhraman - Explore India's Divine Beauty
 
 > **भारत भ्रमण** | Your Gateway to India's Most Iconic Destinations
+
+**[→ Try the live demo](https://bharat-bhraman-lmty.vercel.app/)**
+
 <p align="right">
    <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/4da40b30-7fd2-40cb-a50b-ff531408496d" />
 </p>
@@ -211,7 +214,7 @@ For those interested in:
 
 - **Email**: visitbharatbhraman@gmail.com
 - **Phone**: +91-7029898410
-- **Website**: [Bharat Bhraman](https://github.com/Rupam-Hait/Bharat-Bhraman)
+- **Website**: [Bharat Bhraman](https://bharat-bhraman-lmty.vercel.app/)
 
 ---
 
