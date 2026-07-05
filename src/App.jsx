@@ -3,9 +3,10 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CulturalHighlights from './components/CulturalHighlights';
 import Footer from './components/Footer';
-
 import FamousDestinations from './components/FamousDestinations';
 import IndiaMap from './components/IndiaMap';
+import TourRegistration from './components/TourRegistration';
+import TravelGroups from './components/TravelGroups';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
                 <Hero />
                 <FamousDestinations />
                 <IndiaMap />
+                <TourRegistration />
+                <TravelGroups />
                 <CulturalHighlights />
                 <Footer />
             </div>

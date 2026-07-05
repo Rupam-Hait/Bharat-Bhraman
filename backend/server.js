@@ -69,6 +69,72 @@ app.get('/api/destinations', (req, res) => {
     res.json(destinations);
 });
 
+// --- JSON DATABASE HELPER FOR DATA COLLECTION ---
+const fs = require('fs');
+const path = require('path');
+const dataFilePath = path.join(__dirname, 'data.json');
+
+// Initialize data.json if it doesn't exist
+if (!fs.existsSync(dataFilePath)) {
+    fs.writeFileSync(dataFilePath, JSON.stringify({ registrations: [], groupJoins: [] }, null, 2));
+}
+
+const readData = () => {
+    try {
+        const raw = fs.readFileSync(dataFilePath, 'utf8');
+        return JSON.parse(raw);
+    } catch (e) {
+        return { registrations: [], groupJoins: [] };
+    }
+};
+
+const writeData = (data) => {
+    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+};
+
+// --- DATA COLLECTION ENDPOINTS ---
+app.post('/api/register', (req, res) => {
+    const { name, email, destination, date } = req.body;
+    if (!name || !email || !destination || !date) {
+        return res.status(400).json({ success: false, message: 'All fields (name, email, destination, date) are required.' });
+    }
+    
+    const db = readData();
+    const newRegistration = {
+        id: Date.now(),
+        name,
+        email,
+        destination,
+        date,
+        createdAt: new Date().toISOString()
+    };
+    db.registrations.push(newRegistration);
+    writeData(db);
+    
+    console.log(`New registration collected:`, newRegistration);
+    res.json({ success: true, message: 'Your tour has been successfully registered!', registration: newRegistration });
+});
+
+app.post('/api/group', (req, res) => {
+    const { groupName, email } = req.body;
+    if (!groupName || !email) {
+        return res.status(400).json({ success: false, message: 'Group name and email are required.' });
+    }
+    
+    const db = readData();
+    const newJoin = {
+        id: Date.now(),
+        groupName,
+        email,
+        createdAt: new Date().toISOString()
+    };
+    db.groupJoins.push(newJoin);
+    writeData(db);
+    
+    console.log(`New group join collected:`, newJoin);
+    res.json({ success: true, message: `Successfully joined ${groupName}! Check your email for updates.` });
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
