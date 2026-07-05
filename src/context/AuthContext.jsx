@@ -27,12 +27,33 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const signup = async (username, email, password) => {
+        try {
+            const response = await fetch(`${API_BASE}/api/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
+            const data = await response.json();
+            if (data.success) {
+                setUser(data.user);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Signup failed:', error);
+            return false;
+        }
+    };
+
     const logout = () => {
         setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, signup, logout }}>
             {children}
         </AuthContext.Provider>
     );

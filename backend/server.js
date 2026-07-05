@@ -53,6 +53,15 @@ app.post('/api/login', (req, res) => {
     }
 });
 
+app.post('/api/signup', (req, res) => {
+    const { username, email, password } = req.body;
+    if (username && email && password) {
+        res.json({ success: true, user: { name: username, email } });
+    } else {
+        res.status(400).json({ success: false, message: 'Username, email and password required' });
+    }
+});
+
 const destinations = [
     {
         id: 1,
