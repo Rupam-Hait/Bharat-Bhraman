@@ -87,11 +87,16 @@ app.get('/api/destinations', (req, res) => {
 // --- JSON DATABASE HELPER FOR DATA COLLECTION ---
 const fs = require('fs');
 const path = require('path');
-const dataFilePath = path.join(__dirname, 'data.json');
+const isVercel = !!process.env.VERCEL;
+const dataFilePath = isVercel ? '/tmp/data.json' : path.join(__dirname, 'data.json');
 
 // Initialize data.json if it doesn't exist
 if (!fs.existsSync(dataFilePath)) {
-    fs.writeFileSync(dataFilePath, JSON.stringify({ registrations: [], groupJoins: [] }, null, 2));
+    try {
+        fs.writeFileSync(dataFilePath, JSON.stringify({ registrations: [], groupJoins: [] }, null, 2));
+    } catch (e) {
+        console.error('Failed to initialize database file:', e.message);
+    }
 }
 
 const readData = () => {
