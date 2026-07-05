@@ -11,15 +11,15 @@ const IndiaMap = () => {
 
     useEffect(() => {
         if (!mapInstanceRef.current && mapContainerRef.current) {
-            // Initialize Leaflet map centered on India
+            // Initialize Leaflet map centered to fit the real, full map of India in the container
             const map = L.map(mapContainerRef.current, {
-                center: [22.9734, 78.6569],
-                zoom: 5,
+                center: [22.8, 78.9],
+                zoom: 4.8,
                 scrollWheelZoom: false,
-                zoomControl: false // Position zoom control elsewhere if needed
+                zoomControl: false
             });
 
-            // Add zoom control at bottom-left corner so it doesn't collide with floating header
+            // Add zoom control at bottom-left corner
             L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
             // Add Esri World Satellite Imagery
@@ -136,20 +136,10 @@ const IndiaMap = () => {
                 ))}
             </div>
 
-            {/* Floating Right Glassmorphic Info Panel */}
-            <div className="absolute right-4 top-4 bottom-4 w-[calc(100%-32px)] sm:w-[420px] z-10 flex flex-col pointer-events-none">
-                <div className="flex-1 bg-white/95 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-2xl overflow-y-auto max-h-full custom-scrollbar pointer-events-auto flex flex-col justify-between">
-                    {!selectedDest ? (
-                        <div className="flex-1 flex flex-col justify-center items-center text-center py-10">
-                            <div className="w-16 h-16 bg-warm-sand/20 rounded-full flex items-center justify-center mb-4">
-                                <MapPin size={32} className="text-saffron animate-bounce" />
-                            </div>
-                            <h4 className="text-xl font-serif font-bold text-gray-900 mb-2">Select a Destination</h4>
-                            <p className="text-gray-600 text-xs max-w-xs leading-relaxed">
-                                Click on any orange pointer on the satellite background map to display hotels, dining, and transit options.
-                            </p>
-                        </div>
-                    ) : (
+            {/* Floating Right Glassmorphic Info Panel (only shown when a destination is selected) */}
+            {selectedDest && (
+                <div className="absolute right-4 top-4 bottom-4 w-[calc(100%-32px)] sm:w-[420px] z-10 flex flex-col pointer-events-none">
+                    <div className="flex-1 bg-white/95 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-2xl overflow-y-auto max-h-full custom-scrollbar pointer-events-auto flex flex-col justify-between">
                         <div className="flex-1 flex flex-col justify-between">
                             <div>
                                 {/* Close Button */}
@@ -285,9 +275,9 @@ const IndiaMap = () => {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
-            </div>
+            )}
         </section>
     );
 };
