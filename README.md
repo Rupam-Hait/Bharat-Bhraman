@@ -5,7 +5,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Poppins&size=22&duration=3000&pause=1000&color=FF9933&center=true&vCenter=true&width=600&lines=Discover+the+Taj+Mahal;Sail+the+Kerala+Backwaters;Trek+through+Leh-Ladakh;Explore+Incredible+India" alt="Typing SVG" />
 
-[![Visit our website](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-FF9933?style=for-the-badge)](https://bharat-bhraman-lmty.vercel.app/)
+[![live demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-FF9933?style=for-the-badge)](https://bharat-bhraman-lmty.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-138808?style=for-the-badge)](https://github.com/Rupam-Hait/Bharat-Bhraman/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/Rupam-Hait/Bharat-Bhraman?style=for-the-badge&color=F5C518)](https://github.com/Rupam-Hait/Bharat-Bhraman/stargazers)
 [![Forks](https://img.shields.io/github/forks/Rupam-Hait/Bharat-Bhraman?style=for-the-badge&color=7B2D26)](https://github.com/Rupam-Hait/Bharat-Bhraman/forks)
@@ -20,7 +20,7 @@
 
 **A beautifully designed travel exploration platform showcasing India's most iconic destinations, cultural landmarks, and adventure hotspots — complete with interactive maps, tour registration, and travel communities.**
 
-**[🚀 Try the Live Demo →](https://bharat-bhraman-lmty.vercel.app/)**
+**[🚀 Visit our website→](https://bharat-bhraman-lmty.vercel.app/)**
 
 </div>
 
