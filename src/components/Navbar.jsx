@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, Search, User, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { destinationsData } from '../data/destinationsData';
 import LoginModal from './LoginModal';
 
-const Navbar = () => {
+const Navbar = ({ onSearchSelect }) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const { user, logout } = useAuth();
     
     // Theme switching state initialized from localStorage
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+    
+    // Search query states
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     useEffect(() => {
         if (theme === 'dark') {
@@ -23,11 +28,33 @@ const Navbar = () => {
         setTheme(prev => prev === 'light' ? 'dark' : 'light');
     };
 
-    // Smooth scroll handler
+    // Smooth scroll helper
     const scrollToSection = (id) => {
         const el = document.getElementById(id);
         if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    // Search submit handler
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (!searchQuery.trim()) return;
+
+        const query = searchQuery.toLowerCase().trim();
+        // Look for exact or partial matches in the name or description of destinations
+        const matchedDest = destinationsData.find(dest => 
+            dest.name.toLowerCase().includes(query) || 
+            dest.description.toLowerCase().includes(query)
+        );
+
+        if (matchedDest) {
+            onSearchSelect(matchedDest);
+            scrollToSection('explore-map');
+            setSearchQuery('');
+            setIsSearchOpen(false);
+        } else {
+            alert(`No matching destination found for "${searchQuery}". Try searching for "Agra", "Jaipur", "Kerala", "Varanasi", etc.`);
         }
     };
 
@@ -72,7 +99,37 @@ const Navbar = () => {
                         </div>
 
                         {/* Controls & Icons */}
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-3">
+                            {/* Expandable Search Input */}
+                            <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+                                <div className={`flex items-center bg-warm-sand/20 dark:bg-slate-800 rounded-xl overflow-hidden transition-all duration-300 ${
+                                    isSearchOpen ? 'w-40 sm:w-60 px-3 py-1' : 'w-0 px-0 py-0'
+                                }`}>
+                                    <input
+                                        type="text"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder="Search destination..."
+                                        className="w-full py-1.5 bg-transparent text-xs text-gray-800 dark:text-gray-200 border-none outline-none focus:ring-0 placeholder-gray-400"
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        if (isSearchOpen && searchQuery.trim()) {
+                                            // Act as submit if open and has query
+                                            handleSearchSubmit({ preventDefault: () => {} });
+                                        } else {
+                                            setIsSearchOpen(!isSearchOpen);
+                                        }
+                                    }}
+                                    className="p-2 rounded-xl bg-warm-sand/20 dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:text-saffron dark:hover:text-saffron transition-all focus:outline-none"
+                                    title="Search Destination"
+                                >
+                                    <Search size={20} />
+                                </button>
+                            </form>
+
                             {/* Theme Toggle Button */}
                             <button 
                                 onClick={toggleTheme}

@@ -4,10 +4,9 @@ import 'leaflet/dist/leaflet.css';
 import { destinationsData } from '../data/destinationsData';
 import { MapPin, Hotel, Utensils, Train, Bus, Plane, X, Info } from 'lucide-react';
 
-const IndiaMap = () => {
+const IndiaMap = ({ selectedDest, setSelectedDest }) => {
     const mapContainerRef = useRef(null);
     const mapInstanceRef = useRef(null);
-    const [selectedDest, setSelectedDest] = useState(null);
 
     useEffect(() => {
         if (!mapInstanceRef.current && mapContainerRef.current) {
@@ -64,6 +63,13 @@ const IndiaMap = () => {
             }
         };
     }, []);
+
+    // Effect to pan and zoom map to coordinates when selectedDest changes from outside
+    useEffect(() => {
+        if (selectedDest && mapInstanceRef.current) {
+            mapInstanceRef.current.setView(selectedDest.coordinates, 6);
+        }
+    }, [selectedDest]);
 
     // Selection helper
     const handleSelectDest = (dest) => {

@@ -11,6 +11,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 
 function AppContent() {
     const { user } = useAuth();
+    const [selectedDest, setSelectedDest] = React.useState(null);
 
     if (!user) {
         return <AuthPage />;
@@ -18,9 +19,9 @@ function AppContent() {
 
     return (
         <div className="min-h-screen bg-warm-sand/30 dark:bg-slate-950 font-sans text-gray-950 dark:text-gray-50 transition-colors duration-300">
-            <Navbar />
+            <Navbar onSearchSelect={setSelectedDest} />
             <Hero />
-            <IndiaMap />
+            <IndiaMap selectedDest={selectedDest} setSelectedDest={setSelectedDest} />
             <TourRegistration />
             <TravelGroups />
             <CulturalHighlights />
