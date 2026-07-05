@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { destinationsData } from '../data/destinationsData';
-import { MapPin, Hotel, Utensils, Train, Bus, Plane, ArrowRight, CheckCircle } from 'lucide-react';
+import { MapPin, Hotel, Utensils, Train, Bus, Plane, X, Info } from 'lucide-react';
 
 const IndiaMap = () => {
     const mapContainerRef = useRef(null);
@@ -15,12 +15,16 @@ const IndiaMap = () => {
             const map = L.map(mapContainerRef.current, {
                 center: [22.9734, 78.6569],
                 zoom: 5,
-                scrollWheelZoom: false
+                scrollWheelZoom: false,
+                zoomControl: false // Position zoom control elsewhere if needed
             });
+
+            // Add zoom control at bottom-left corner so it doesn't collide with floating header
+            L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
             // Add Esri World Satellite Imagery
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS'
             }).addTo(map);
 
             // Add Esri Reference Labels on top for hybrid style readability
@@ -30,7 +34,7 @@ const IndiaMap = () => {
 
             mapInstanceRef.current = map;
 
-            // Add markers with custom divIcon for orange dots
+            // Add markers with custom pulsing orange divIcon
             destinationsData.forEach(dest => {
                 const customMarker = L.divIcon({
                     className: 'custom-div-icon',
@@ -61,7 +65,7 @@ const IndiaMap = () => {
         };
     }, []);
 
-    // Helper to programmatically select destination and center map
+    // Selection helper
     const handleSelectDest = (dest) => {
         setSelectedDest(dest);
         if (mapInstanceRef.current) {
@@ -70,144 +74,172 @@ const IndiaMap = () => {
     };
 
     return (
-        <section className="py-20 px-4 max-w-7xl mx-auto" id="explore-map">
+        <section className="relative w-full h-[750px] overflow-hidden bg-slate-900 border-y border-slate-800" id="explore-map">
             <style>{`
                 .pulse-marker {
                     animation: marker-pulse 2s infinite alternate;
                     cursor: pointer;
                 }
                 @keyframes marker-pulse {
-                    0% { transform: scale(0.95); box-shadow: 0 0 6px rgba(255, 153, 51, 0.6); }
-                    100% { transform: scale(1.3); box-shadow: 0 0 14px rgba(255, 153, 51, 0.9); }
+                    0% { transform: scale(0.95); box-shadow: 0 0 6px rgba(255, 153, 51, 0.7); }
+                    100% { transform: scale(1.3); box-shadow: 0 0 14px rgba(255, 153, 51, 1); }
                 }
                 .leaflet-container {
                     font-family: inherit;
-                    z-index: 1;
+                    z-index: 0;
+                }
+                /* Hide default Leaflet scrollbars inside tooltip */
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(156, 163, 175, 0.5);
+                    border-radius: 2px;
                 }
             `}</style>
 
-            <div className="text-center mb-12">
-                <h2 className="text-saffron font-serif text-xl mb-2 uppercase tracking-widest">Interactive Travel Map</h2>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900">Plan Your Pilgrimage & Tours</h3>
-                <div className="w-24 h-1 bg-gold mx-auto mt-4"></div>
+            {/* Map Container as Absolute Background */}
+            <div 
+                ref={mapContainerRef} 
+                className="absolute inset-0 w-full h-full"
+                style={{ zIndex: 0 }}
+            />
+
+            {/* Floating Top-Left Header Panel */}
+            <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-3xl shadow-2xl border border-white/50 max-w-sm hidden sm:block">
+                <div className="flex items-center gap-2 text-saffron font-bold text-xs uppercase tracking-wider mb-1">
+                    <Info size={14} /> Interactive Travel Guide
+                </div>
+                <h3 className="text-xl font-serif font-bold text-gray-900 leading-snug">Explore Divine India</h3>
+                <p className="text-gray-600 text-xs mt-1.5 leading-relaxed">
+                    Click on the pulsing orange markers on the satellite map or use the links below to check hotels, restaurants, and transport availability.
+                </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Left Column: Interactive Map */}
-                <div className="lg:col-span-7">
-                    <div className="bg-white rounded-3xl p-4 shadow-2xl border border-gray-100">
-                        <div 
-                            ref={mapContainerRef} 
-                            className="w-full h-[550px] rounded-2xl overflow-hidden"
-                            style={{ minHeight: '550px' }}
-                        />
-                        <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                            {destinationsData.map((dest) => (
-                                <button
-                                    key={dest.id}
-                                    onClick={() => handleSelectDest(dest)}
-                                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                                        selectedDest?.id === dest.id
-                                            ? 'bg-saffron text-white shadow-md'
-                                            : 'bg-warm-sand/20 text-gray-700 hover:bg-warm-sand/40'
-                                    }`}
-                                >
-                                    {dest.name.split(',')[0]}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+            {/* Floating Bottom Quick Selection Link Pills */}
+            <div className="absolute bottom-4 left-4 right-4 sm:right-auto z-10 bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-2xl border border-white/50 flex gap-2 overflow-x-auto max-w-full sm:max-w-xl scrollbar-none">
+                {destinationsData.map((dest) => (
+                    <button
+                        key={dest.id}
+                        onClick={() => handleSelectDest(dest)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                            selectedDest?.id === dest.id
+                                ? 'bg-saffron text-white shadow-md'
+                                : 'bg-warm-sand/20 text-gray-700 hover:bg-warm-sand/40'
+                        }`}
+                    >
+                        {dest.name.split(',')[0]}
+                    </button>
+                ))}
+            </div>
 
-                {/* Right Column: Destination Details */}
-                <div className="lg:col-span-5 h-[620px] flex flex-col">
+            {/* Floating Right Glassmorphic Info Panel */}
+            <div className="absolute right-4 top-4 bottom-4 w-[calc(100%-32px)] sm:w-[420px] z-10 flex flex-col pointer-events-none">
+                <div className="flex-1 bg-white/95 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-2xl overflow-y-auto max-h-full custom-scrollbar pointer-events-auto flex flex-col justify-between">
                     {!selectedDest ? (
-                        <div className="flex-1 bg-white/60 backdrop-blur-sm rounded-3xl p-8 border border-white/50 shadow-2xl flex flex-col justify-center items-center text-center h-full">
-                            <div className="w-20 h-20 bg-warm-sand/20 rounded-full flex items-center justify-center mb-6">
-                                <MapPin size={40} className="text-saffron animate-bounce" />
+                        <div className="flex-1 flex flex-col justify-center items-center text-center py-10">
+                            <div className="w-16 h-16 bg-warm-sand/20 rounded-full flex items-center justify-center mb-4">
+                                <MapPin size={32} className="text-saffron animate-bounce" />
                             </div>
-                            <h4 className="text-2xl font-serif font-bold text-gray-900 mb-2">Explore Destinations</h4>
-                            <p className="text-gray-600 max-w-sm leading-relaxed">
-                                Click on any orange marker on the map of India or select a quick link below the map to see hotels, restaurants, and transit options.
+                            <h4 className="text-xl font-serif font-bold text-gray-900 mb-2">Select a Destination</h4>
+                            <p className="text-gray-600 text-xs max-w-xs leading-relaxed">
+                                Click on any orange pointer on the satellite background map to display hotels, dining, and transit options.
                             </p>
                         </div>
                     ) : (
-                        <div className="flex-1 bg-white rounded-3xl p-8 border border-gray-100 shadow-2xl overflow-y-auto max-h-[620px] custom-scrollbar">
-                            {/* Destination Header */}
-                            <div className="flex items-start gap-4 mb-6">
-                                <img 
-                                    src={selectedDest.image} 
-                                    alt={selectedDest.name}
-                                    className="w-24 h-24 rounded-2xl object-cover shadow-md border-2 border-white"
-                                />
-                                <div>
-                                    <div className="flex items-center gap-1 text-saffron font-medium text-xs uppercase tracking-wider mb-1">
-                                        <MapPin size={12} /> Live Tour Guide
-                                    </div>
-                                    <h4 className="text-2xl font-serif font-bold text-gray-900 leading-tight">{selectedDest.name}</h4>
-                                    <p className="text-gray-500 text-xs mt-1">Latitude: {selectedDest.coordinates[0]}, Longitude: {selectedDest.coordinates[1]}</p>
+                        <div className="flex-1 flex flex-col justify-between">
+                            <div>
+                                {/* Close Button */}
+                                <div className="flex justify-between items-start mb-4">
+                                    <span className="inline-flex items-center gap-1 text-[10px] bg-saffron/10 text-saffron px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">
+                                        <MapPin size={10} /> Active Destination
+                                    </span>
+                                    <button 
+                                        onClick={() => setSelectedDest(null)}
+                                        className="w-7 h-7 bg-warm-sand/20 hover:bg-warm-sand/40 text-gray-600 rounded-full flex items-center justify-center transition-colors"
+                                    >
+                                        <X size={14} />
+                                    </button>
                                 </div>
-                            </div>
-                            
-                            <p className="text-gray-600 text-sm leading-relaxed mb-6 border-b border-gray-100 pb-4">
-                                {selectedDest.description}
-                            </p>
 
-                            {/* Hotels & Restaurants Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                {/* Hotels */}
-                                <div className="bg-warm-sand/10 rounded-2xl p-4 border border-warm-sand/25">
-                                    <div className="flex items-center gap-2 text-saffron font-bold text-sm mb-3">
-                                        <Hotel size={16} /> Recommended Hotels
+                                {/* Destination Info */}
+                                <div className="flex items-center gap-3 mb-4">
+                                    <img 
+                                        src={selectedDest.image} 
+                                        alt={selectedDest.name}
+                                        className="w-16 h-16 rounded-xl object-cover shadow-sm border border-white"
+                                    />
+                                    <div>
+                                        <h4 className="text-xl font-serif font-bold text-gray-900 leading-tight">{selectedDest.name}</h4>
+                                        <p className="text-gray-500 text-[10px] mt-0.5">Lat: {selectedDest.coordinates[0]} | Lng: {selectedDest.coordinates[1]}</p>
                                     </div>
-                                    <div className="space-y-3">
-                                        {selectedDest.hotels.map((hotel, idx) => (
-                                            <div key={idx} className="text-xs">
-                                                <p className="font-bold text-gray-800">{hotel.name}</p>
-                                                <div className="flex justify-between text-gray-500 mt-0.5">
-                                                    <span>Rating: {hotel.rating}</span>
-                                                    <span>{hotel.price}</span>
+                                </div>
+
+                                <p className="text-gray-600 text-xs leading-relaxed mb-4 border-b border-gray-100 pb-3">
+                                    {selectedDest.description}
+                                </p>
+
+                                {/* Hotels & Dining */}
+                                <div className="grid grid-cols-1 gap-3 mb-4">
+                                    {/* Hotels */}
+                                    <div className="bg-warm-sand/10 rounded-xl p-3.5 border border-warm-sand/20">
+                                        <div className="flex items-center gap-2 text-saffron font-bold text-xs mb-2">
+                                            <Hotel size={14} /> Recommended Hotels
+                                        </div>
+                                        <div className="space-y-2">
+                                            {selectedDest.hotels.map((hotel, idx) => (
+                                                <div key={idx} className="text-[11px] leading-tight">
+                                                    <p className="font-bold text-gray-800">{hotel.name}</p>
+                                                    <div className="flex justify-between text-gray-500 mt-0.5">
+                                                        <span>Rating: {hotel.rating}</span>
+                                                        <span>{hotel.price}</span>
+                                                    </div>
+                                                    <span className="text-[9px] text-green-700 font-medium">
+                                                        ● {hotel.availability}
+                                                    </span>
                                                 </div>
-                                                <span className="inline-block mt-1 text-[10px] px-2 py-0.5 bg-green-50 text-green-700 rounded border border-green-100">
-                                                    {hotel.availability}
-                                                </span>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Restaurants */}
-                                <div className="bg-warm-sand/10 rounded-2xl p-4 border border-warm-sand/25">
-                                    <div className="flex items-center gap-2 text-india-green font-bold text-sm mb-3">
-                                        <Utensils size={16} /> Local Restaurants
-                                    </div>
-                                    <div className="space-y-3">
-                                        {selectedDest.restaurants.map((rest, idx) => (
-                                            <div key={idx} className="text-xs">
-                                                <p className="font-bold text-gray-800">{rest.name}</p>
-                                                <p className="text-gray-500 mt-0.5">Cuisine: {rest.cuisine}</p>
-                                                <span className="text-gray-500">Rating: {rest.rating}</span>
-                                            </div>
-                                        ))}
+                                    {/* Restaurants */}
+                                    <div className="bg-warm-sand/10 rounded-xl p-3.5 border border-warm-sand/20">
+                                        <div className="flex items-center gap-2 text-india-green font-bold text-xs mb-2">
+                                            <Utensils size={14} /> Popular Dining Cuisines
+                                        </div>
+                                        <div className="space-y-2">
+                                            {selectedDest.restaurants.map((rest, idx) => (
+                                                <div key={idx} className="text-[11px] leading-tight">
+                                                    <p className="font-bold text-gray-800">{rest.name}</p>
+                                                    <div className="flex justify-between text-gray-500 mt-0.5">
+                                                        <span>Cuisine: {rest.cuisine}</span>
+                                                        <span>{rest.rating}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Transport Connectivity */}
-                            <div className="border-t border-gray-100 pt-4">
-                                <h5 className="font-serif font-bold text-gray-900 text-base mb-4">Transport Connections & Seat Availability</h5>
-                                <div className="space-y-4">
+                            {/* Transit Options */}
+                            <div className="border-t border-gray-100 pt-3">
+                                <h5 className="font-serif font-bold text-gray-900 text-sm mb-3">Transit Connections & Seat Availability</h5>
+                                <div className="space-y-3">
                                     {/* Train */}
                                     <div>
-                                        <div className="flex items-center justify-between text-xs font-medium mb-1">
-                                            <span className="flex items-center gap-2 text-gray-800">
-                                                <Train size={14} className="text-blue-600" />
+                                        <div className="flex items-center justify-between text-[11px] font-medium mb-0.5">
+                                            <span className="flex items-center gap-1.5 text-gray-700">
+                                                <Train size={12} className="text-blue-600" />
                                                 {selectedDest.transport.train.connection}
                                             </span>
                                             <span className="text-blue-700 font-bold">{selectedDest.transport.train.availability}</span>
                                         </div>
-                                        <p className="text-[10px] text-gray-500 mb-1.5">{selectedDest.transport.train.status}</p>
-                                        <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <p className="text-[9px] text-gray-400 mb-1">{selectedDest.transport.train.status}</p>
+                                        <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                                             <div 
                                                 className="bg-blue-600 h-full rounded-full transition-all duration-500" 
                                                 style={{ width: selectedDest.transport.train.availability !== 'N/A' ? selectedDest.transport.train.availability.split('%')[0] + '%' : '0%' }}
@@ -217,15 +249,15 @@ const IndiaMap = () => {
 
                                     {/* Bus */}
                                     <div>
-                                        <div className="flex items-center justify-between text-xs font-medium mb-1">
-                                            <span className="flex items-center gap-2 text-gray-800">
-                                                <Bus size={14} className="text-india-green" />
+                                        <div className="flex items-center justify-between text-[11px] font-medium mb-0.5">
+                                            <span className="flex items-center gap-1.5 text-gray-700">
+                                                <Bus size={12} className="text-india-green" />
                                                 {selectedDest.transport.bus.connection}
                                             </span>
                                             <span className="text-green-700 font-bold">{selectedDest.transport.bus.availability}</span>
                                         </div>
-                                        <p className="text-[10px] text-gray-500 mb-1.5">{selectedDest.transport.bus.status}</p>
-                                        <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <p className="text-[9px] text-gray-400 mb-1">{selectedDest.transport.bus.status}</p>
+                                        <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                                             <div 
                                                 className="bg-india-green h-full rounded-full transition-all duration-500" 
                                                 style={{ width: selectedDest.transport.bus.availability !== 'N/A' ? selectedDest.transport.bus.availability.split('%')[0] + '%' : '0%' }}
@@ -233,17 +265,17 @@ const IndiaMap = () => {
                                         </div>
                                     </div>
 
-                                    {/* Flights */}
+                                    {/* Flight */}
                                     <div>
-                                        <div className="flex items-center justify-between text-xs font-medium mb-1">
-                                            <span className="flex items-center gap-2 text-gray-800">
-                                                <Plane size={14} className="text-saffron" />
+                                        <div className="flex items-center justify-between text-[11px] font-medium mb-0.5">
+                                            <span className="flex items-center gap-1.5 text-gray-700">
+                                                <Plane size={12} className="text-saffron" />
                                                 {selectedDest.transport.flight.connection}
                                             </span>
                                             <span className="text-orange-700 font-bold">{selectedDest.transport.flight.availability}</span>
                                         </div>
-                                        <p className="text-[10px] text-gray-500 mb-1.5">{selectedDest.transport.flight.status}</p>
-                                        <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <p className="text-[9px] text-gray-400 mb-1">{selectedDest.transport.flight.status}</p>
+                                        <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                                             <div 
                                                 className="bg-saffron h-full rounded-full transition-all duration-500" 
                                                 style={{ width: selectedDest.transport.flight.availability !== 'N/A' ? selectedDest.transport.flight.availability.split('%')[0] + '%' : '0%' }}
