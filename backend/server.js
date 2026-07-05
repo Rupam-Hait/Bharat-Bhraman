@@ -9,18 +9,33 @@ app.use(express.json());
 const highlights = [
     {
         title: "Spiritual Journeys",
-        image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop", // Varanasi
-        desc: "Find peace in the sacred cities of Varanasi, Rishikesh, and Bodh Gaya."
+        image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?q=80&w=2076&auto=format&fit=crop",
+        desc: "Find peace and divinity in the sacred spaces of Varanasi, Rishikesh, and Bodh Gaya."
     },
     {
         title: "Royal Heritage",
-        image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1974&auto=format&fit=crop", // Rajasthan Palace
-        desc: "Walk through the grand palaces and forts of Rajasthan."
+        image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1974&auto=format&fit=crop",
+        desc: "Walk through the grand palaces, forts, and historic gates of Rajasthan, Delhi, and Mysore."
     },
     {
         title: "Vibrant Festivals",
-        image: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?q=80&w=1936&auto=format&fit=crop", // Holi/Diwali
-        desc: "Experience the colors of Holi and the lights of Diwali."
+        image: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?q=80&w=1936&auto=format&fit=crop",
+        desc: "Experience the colorful chaos of Holi, the brilliant lights of Diwali, and grand temple Dussehra celebrations."
+    },
+    {
+        title: "Classical Arts & Dances",
+        image: "https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?q=80&w=2080&auto=format&fit=crop",
+        desc: "Be mesmerized by traditional Indian dance forms like Kathakali, Bharatanatyam, and classical sitar ragas."
+    },
+    {
+        title: "Traditional Cuisines",
+        image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=2070&auto=format&fit=crop",
+        desc: "Savor the rich flavors of Indian culinary traditions, from aromatic biryanis to satvik delicacies and local street food."
+    },
+    {
+        title: "Yoga & Wellness",
+        image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020&auto=format&fit=crop",
+        desc: "Restore harmony to body, mind, and spirit with ayurveda retreats and meditation in Rishikesh, the world capital of Yoga."
     }
 ];
 
