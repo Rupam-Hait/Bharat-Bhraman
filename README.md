@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🇮🇳 Bharat Bhraman
+# Bharat Bhraman
 ### *भारत भ्रमण — Explore the Divine Beauty of India*
 
 <img src="https://readme-typing-svg.demolab.com?font=Poppins&size=22&duration=3000&pause=1000&color=FF9933&center=true&vCenter=true&width=600&lines=Discover+the+Taj+Mahal;Sail+the+Kerala+Backwaters;Trek+through+Leh-Ladakh;Explore+Incredible+India" alt="Typing SVG" />
@@ -24,26 +24,7 @@
 
 </div>
 
-<br>
 
-## 📚 Table of Contents
-
-- [🌍 Overview](#-overview)
-- [✨ Features](#-features)
-- [🎯 Tourist Destinations](#-tourist-destinations)
-- [🚀 Getting Started](#-getting-started)
-- [💻 Technologies Used](#-technologies-used)
-- [📁 Project Structure](#-project-structure)
-- [🎮 How to Use](#-how-to-use)
-- [👥 Travel Groups](#-travel-groups)
-- [🎨 Design Highlights](#-design-highlights)
-- [🔒 API Keys & Security](#-api-keys--security)
-- [🚀 Future Enhancements](#-future-enhancements)
-- [🤝 Contributing](#-contributing)
-- [📞 Support](#-support)
-- [📄 License](#-license)
-
-<br>
 
 ## 🌍 Overview
 
@@ -54,37 +35,40 @@
 To make India's rich cultural heritage and natural beauty accessible to travelers worldwide through an engaging, user-friendly platform.
 
 <br>
-## 📸 Our app
+
+## 📸 Screenshots
 
 <div align="center">
 
+### 🔐 Sign Up
+<img width="1215" alt="Sign Up Page" src="https://github.com/user-attachments/assets/4174ddd1-7cc6-473f-bb78-224bc8f12eba">
+
 ### 🏠 Homepage — Journey Through Timeless Heritage
-<img src="IMAGE_URL_HERE" alt="Bharat Bhraman Homepage" width="850">
+<img width="1586" alt="Bharat Bhraman Homepage" src="https://github.com/user-attachments/assets/9f6f47e4-7147-4cc9-b037-302b0ed15201">
 
 ### 🗺️ Interactive Map Explorer
-<img src="IMAGE_URL_HERE" alt="Map Explorer with pulsing city markers" width="850">
+<img width="1583" alt="Map Explorer with pulsing city markers" src="https://github.com/user-attachments/assets/eec62ae7-2ad4-4f7d-acc8-c3fcac52bb08">
 
 <table>
 <tr>
 <td align="center" width="50%">
 
 **📝 Tour Registration**
-<img src="IMAGE_URL_HERE" alt="Tour Registration Form" width="420">
+<img width="1577" alt="Tour Registration Form" src="https://github.com/user-attachments/assets/8a6a855e-78d8-4866-8746-bf3f78b1541f">
 
 </td>
 <td align="center" width="50%">
 
 **👥 Travel Groups**
-<img src="IMAGE_URL_HERE" alt="Travel Groups Page" width="420">
+<img width="1574" alt="Travel Groups Page" src="https://github.com/user-attachments/assets/0cf6689c-8050-4236-a096-8d76d0ba9637">
 
 </td>
 </tr>
 </table>
 
-### 🔐 Sign Up
-<img src="IMAGE_URL_HERE" alt="Sign Up Page" width="450">
-
 </div>
+
+<br>
 
 ## ✨ Features
 
