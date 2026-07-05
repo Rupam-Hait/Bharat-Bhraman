@@ -46,12 +46,6 @@ const Navbar = () => {
                         {/* Desktop Menu - Made clickable with smooth scroll */}
                         <div className="hidden lg:flex space-x-6 items-center">
                             <button 
-                                onClick={() => scrollToSection('destinations')} 
-                                className="text-gray-800 dark:text-gray-200 hover:text-saffron dark:hover:text-saffron font-semibold text-sm transition-colors focus:outline-none"
-                            >
-                                Destinations
-                            </button>
-                            <button 
                                 onClick={() => scrollToSection('explore-map')} 
                                 className="text-gray-800 dark:text-gray-200 hover:text-saffron dark:hover:text-saffron font-semibold text-sm transition-colors focus:outline-none"
                             >

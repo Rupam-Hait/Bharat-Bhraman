@@ -3,7 +3,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CulturalHighlights from './components/CulturalHighlights';
 import Footer from './components/Footer';
-import FamousDestinations from './components/FamousDestinations';
 import IndiaMap from './components/IndiaMap';
 import TourRegistration from './components/TourRegistration';
 import TravelGroups from './components/TravelGroups';
@@ -15,7 +14,6 @@ function App() {
             <div className="min-h-screen bg-warm-sand/30 dark:bg-slate-950 font-sans text-gray-950 dark:text-gray-50 transition-colors duration-300">
                 <Navbar />
                 <Hero />
-                <FamousDestinations />
                 <IndiaMap />
                 <TourRegistration />
                 <TravelGroups />
