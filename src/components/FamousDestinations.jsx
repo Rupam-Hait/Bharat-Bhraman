@@ -12,10 +12,10 @@ const FamousDestinations = () => {
     }, []);
 
     return (
-        <section className="py-20 px-4 max-w-7xl mx-auto bg-white/50 rounded-3xl my-10">
+        <section id="destinations" className="py-20 px-4 max-w-7xl mx-auto bg-white/50 dark:bg-slate-800/50 rounded-3xl my-10 border border-transparent dark:border-slate-800">
             <div className="text-center mb-16">
                 <h2 className="text-saffron font-serif text-xl mb-2 uppercase tracking-widest">Must Visit</h2>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900">Famous Destinations</h3>
+                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white">Famous Destinations</h3>
                 <div className="w-24 h-1 bg-gold mx-auto mt-6"></div>
             </div>
 

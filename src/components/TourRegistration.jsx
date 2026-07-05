@@ -45,24 +45,24 @@ export const TourRegistration = () => {
 
     return (
         <section className="py-20 px-4 max-w-4xl mx-auto" id="register">
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-10 items-center transition-colors duration-300">
                 {/* Left Side: Text Description */}
                 <div>
                     <h2 className="text-saffron font-serif text-xl mb-2 uppercase tracking-widest">Book Your Journey</h2>
-                    <h3 className="text-3xl font-serif font-bold text-gray-900 mb-4">Tour Registration</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                    <h3 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-4">Tour Registration</h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">
                         Ready to embark on an incredible journey across India? Select your dream destination and travel date to book your customized guided tour. Our local guides will connect with you via email to plan your itinerary.
                     </p>
                     <div className="space-y-3">
-                        <div className="flex items-center gap-3 text-xs text-gray-600">
+                        <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
                             <span className="w-6 h-6 bg-saffron/10 rounded-full flex items-center justify-center text-saffron font-bold text-xs">✓</span>
                             Certified Local Professional Guides
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-gray-600">
+                        <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
                             <span className="w-6 h-6 bg-saffron/10 rounded-full flex items-center justify-center text-saffron font-bold text-xs">✓</span>
                             Seamless Hotel & Transport Coordination
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-gray-600">
+                        <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
                             <span className="w-6 h-6 bg-saffron/10 rounded-full flex items-center justify-center text-saffron font-bold text-xs">✓</span>
                             24/7 Pilgrimage Support & Helpdesk
                         </div>
@@ -70,7 +70,7 @@ export const TourRegistration = () => {
                 </div>
 
                 {/* Right Side: Form */}
-                <div className="bg-warm-sand/10 rounded-2xl p-6 md:p-8 border border-warm-sand/20">
+                <div className="bg-warm-sand/10 dark:bg-slate-800/40 rounded-2xl p-6 md:p-8 border border-warm-sand/20 dark:border-slate-700/50">
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {error && (
                             <div className="flex items-center gap-2 bg-red-50 text-red-700 p-3 rounded-xl text-xs border border-red-100">
@@ -84,38 +84,38 @@ export const TourRegistration = () => {
                         )}
 
                         <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Full Name</label>
+                            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
                             <input
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none"
+                                className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none dark:text-white"
                                 placeholder="Enter your name"
                                 required
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Email Address</label>
+                            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none"
+                                className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none dark:text-white"
                                 placeholder="name@example.com"
                                 required
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Select Destination</label>
+                            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Select Destination</label>
                             <select
                                 value={destination}
                                 onChange={(e) => setDestination(e.target.value)}
-                                className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none"
+                                className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none dark:text-white"
                             >
                                 {destinationsData.map((dest) => (
-                                    <option key={dest.id} value={dest.name}>
+                                    <option key={dest.id} value={dest.name} className="dark:bg-slate-800 dark:text-white">
                                         {dest.name}
                                     </option>
                                 ))}
@@ -123,12 +123,12 @@ export const TourRegistration = () => {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Travel Date</label>
+                            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Travel Date</label>
                             <input
                                 type="date"
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
-                                className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none"
+                                className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:ring-saffron focus:border-saffron focus:outline-none dark:text-white"
                                 required
                             />
                         </div>

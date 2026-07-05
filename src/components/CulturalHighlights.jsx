@@ -12,10 +12,10 @@ const CulturalHighlights = () => {
     }, []);
 
     return (
-        <section className="py-20 px-4 max-w-7xl mx-auto">
+        <section id="highlights" className="py-20 px-4 max-w-7xl mx-auto">
             <div className="text-center mb-16">
                 <h2 className="text-saffron font-serif text-xl mb-2 uppercase tracking-widest">Experience India</h2>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900">Cultural Highlights</h3>
+                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white">Cultural Highlights</h3>
                 <div className="w-24 h-1 bg-gold mx-auto mt-6"></div>
             </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { API_BASE } from '../apiConfig';
-import { CheckCircle, AlertCircle, Loader2, Users, Compass, CompassIcon, Sparkles } from 'lucide-react';
+import { CheckCircle, AlertCircle, Loader2, Users, Compass, Sparkles } from 'lucide-react';
 
 export const TravelGroups = () => {
     const [emails, setEmails] = useState({
@@ -76,36 +76,36 @@ export const TravelGroups = () => {
             key: 'adventure',
             name: 'Adventure Seekers',
             icon: Compass,
-            color: 'text-orange-600',
-            bgColor: 'bg-orange-50',
-            borderColor: 'border-orange-100',
+            color: 'text-orange-600 dark:text-orange-400',
+            bgColor: 'bg-orange-50 dark:bg-orange-950/40',
+            borderColor: 'border-orange-100 dark:border-orange-900/30',
             description: 'Trekking through Leh-Ladakh, camping in Western Ghats, rafting in Rishikesh. Perfect for thrill-lovers.'
         },
         {
             key: 'family',
             name: 'Family Explorers',
             icon: Users,
-            color: 'text-blue-600',
-            bgColor: 'bg-blue-50',
-            borderColor: 'border-blue-100',
+            color: 'text-blue-600 dark:text-blue-400',
+            bgColor: 'bg-blue-50 dark:bg-blue-950/40',
+            borderColor: 'border-blue-100 dark:border-blue-900/30',
             description: 'Safe, carefully curated heritage tours and comfortable houseboat experiences in Kerala. Ideal for family trips.'
         },
         {
             key: 'culture',
             name: 'Culture Lovers',
             icon: Sparkles,
-            color: 'text-saffron',
-            bgColor: 'bg-orange-50/50',
-            borderColor: 'border-saffron/10',
+            color: 'text-saffron dark:text-orange-400',
+            bgColor: 'bg-orange-50/50 dark:bg-orange-950/20',
+            borderColor: 'border-saffron/10 dark:border-orange-900/10',
             description: 'Exploring temples of Varanasi, architecture of Mysore, and traditional festivals. Ideal for history enthusiasts.'
         }
     ];
 
     return (
-        <section className="py-20 px-4 max-w-7xl mx-auto border-t border-gray-100" id="groups">
+        <section className="py-20 px-4 max-w-7xl mx-auto border-t border-gray-100 dark:border-slate-800 transition-colors duration-300" id="groups">
             <div className="text-center mb-16">
                 <h2 className="text-saffron font-serif text-xl mb-2 uppercase tracking-widest">Connect with Travelers</h2>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900">Join Our Travel Groups</h3>
+                <h3 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white">Join Our Travel Groups</h3>
                 <div className="w-24 h-1 bg-gold mx-auto mt-4"></div>
             </div>
 
@@ -115,24 +115,24 @@ export const TravelGroups = () => {
                     return (
                         <div 
                             key={group.key}
-                            className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
+                            className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-gray-100 dark:border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
                         >
                             <div>
                                 <div className={`w-14 h-14 ${group.bgColor} rounded-2xl flex items-center justify-center ${group.color} mb-6`}>
                                     <Icon size={28} />
                                 </div>
-                                <h4 className="text-2xl font-serif font-bold text-gray-900 mb-3">{group.name}</h4>
-                                <p className="text-gray-600 text-sm leading-relaxed mb-6">{group.description}</p>
+                                <h4 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-3">{group.name}</h4>
+                                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">{group.description}</p>
                             </div>
 
                             <div className="space-y-3">
                                 {status[group.key].error && (
-                                    <div className="flex items-center gap-2 bg-red-50 text-red-700 p-2.5 rounded-xl text-xs border border-red-100">
+                                    <div className="flex items-center gap-2 bg-red-50 text-red-700 p-2.5 rounded-xl text-xs border border-red-100 dark:border-red-900/30">
                                         <AlertCircle size={14} className="shrink-0" /> {status[group.key].error}
                                     </div>
                                 )}
                                 {status[group.key].success && (
-                                    <div className="flex items-center gap-2 bg-green-50 text-green-700 p-2.5 rounded-xl text-xs border border-green-100">
+                                    <div className="flex items-center gap-2 bg-green-50 text-green-700 p-2.5 rounded-xl text-xs border border-green-100 dark:border-green-900/30">
                                         <CheckCircle size={14} className="shrink-0" /> {status[group.key].success}
                                     </div>
                                 )}
@@ -143,7 +143,7 @@ export const TravelGroups = () => {
                                         value={emails[group.key]}
                                         onChange={(e) => handleEmailChange(group.key, e.target.value)}
                                         placeholder="Your email address"
-                                        className="flex-1 min-w-0 px-3.5 py-2.5 bg-warm-sand/10 border border-gray-200 rounded-xl text-xs focus:ring-saffron focus:border-saffron focus:outline-none"
+                                        className="flex-1 min-w-0 px-3.5 py-2.5 bg-warm-sand/10 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl text-xs focus:ring-saffron focus:border-saffron focus:outline-none dark:text-white"
                                         required
                                     />
                                     <button

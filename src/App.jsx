@@ -12,7 +12,7 @@ import { AuthProvider } from './context/AuthContext';
 function App() {
     return (
         <AuthProvider>
-            <div className="min-h-screen bg-warm-sand/30 font-sans">
+            <div className="min-h-screen bg-warm-sand/30 dark:bg-slate-950 font-sans text-gray-950 dark:text-gray-50 transition-colors duration-300">
                 <Navbar />
                 <Hero />
                 <FamousDestinations />
